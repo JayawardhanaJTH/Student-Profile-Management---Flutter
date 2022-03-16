@@ -1,16 +1,6 @@
-# student_profile_management
+# Student Profile Management
 
-A new Flutter project.
+##This is a flutter project for Current Trends in Software Engineering module.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The project is based on followaing scenario /n
+- As a Student Profile app user I need to be able to capture individual student details, and add a rating based on the class average. The students should be displayed in a list and low rated students should be first to see.
