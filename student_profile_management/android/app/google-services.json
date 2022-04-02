@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "649893214366",
+    "project_id": "studentprofilemanagement-bcd50",
+    "storage_bucket": "studentprofilemanagement-bcd50.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649893214366:android:ed751364a0db558344238f",
+        "android_client_info": {
+          "package_name": "com.example.student_profile_management"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "649893214366-klm93gprgl8s566o3lo3ei4vl3ubhch3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGf9P_bLgwkepg-sihl-ibQ6U3pnI0Ixs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "649893214366-klm93gprgl8s566o3lo3ei4vl3ubhch3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
