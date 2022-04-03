@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:student_profile_management/models/student.dart';
-import 'package:student_profile_management/services/studentService.dart';
+import 'package:student_profile_management/models/teacher.dart';
+import 'package:student_profile_management/services/teacherService.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:toast/toast.dart';
 
-class StudentPage extends StatefulWidget {
-  static const studentRoute = "/student";
-  final StudentService _studentService;
+class TeacherPage extends StatefulWidget {
+  static const teacherRoute = "/teacher";
+  final TeacherService _teacherService;
 
-  const StudentPage({Key? key})
-      : _studentService = const StudentService(),
+  const TeacherPage({Key? key})
+      : _teacherService = const TeacherService(),
         super(key: key);
 
   @override
-  State<StudentPage> createState() => _StudentPageState();
+  State<TeacherPage> createState() => _TeacherPageState();
 }
 
-class _StudentPageState extends State<StudentPage> {
-  final List<Student> studentsList = [];
+class _TeacherPageState extends State<TeacherPage> {
+  final List<Teacher> teachersList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -34,31 +34,31 @@ class _StudentPageState extends State<StudentPage> {
             onPressed: () {
               show();
             },
-            child: const Text("Get Students list"),
+            child: const Text("Get Teachers list"),
           ),
           TextButton(
             onPressed: () {
               add(
-                  student: Student("", "Student",
+                  teacher: const Teacher("", "Teacher",
                       name: "Harsha",
                       password: "12dff",
                       email: "tiran2323@gmail.com",
                       userName: "Tiran",
-                      rank: 4));
+                      contact: "1231"));
             },
-            child: const Text("Add Student"),
+            child: const Text("Add teacher"),
           ),
           TextButton(
             onPressed: () {
-              get(id: "4JU1544wRsAS7uz40fVV");
+              get(id: "HHkMLhedjr3hnDWhCJ1J");
             },
-            child: const Text("Get Student"),
+            child: const Text("Get teacher"),
           ),
           TextButton(
             onPressed: () {
-              delete(id: "6TCHQ3akAQnhMpAMPsjn");
+              delete(id: "SwVBncTCGXKLUSGjDH3Y");
             },
-            child: const Text("Delete Student"),
+            child: const Text("Delete teacher"),
           ),
         ],
       ),
@@ -66,40 +66,40 @@ class _StudentPageState extends State<StudentPage> {
   }
 
   void show() async {
-    Future<List<Student>> list = widget._studentService.getStudentList();
+    Future<List<Teacher>> list = widget._teacherService.getTeacherList();
     await list.then((value) {
       for (var item in value) {
-        studentsList.add(item);
+        teachersList.add(item);
       }
     });
-    print(studentsList.length);
+    print(teachersList.length);
   }
 
-  void add({required Student student}) {
-    var status = widget._studentService.addStudent(student);
+  void add({required Teacher teacher}) {
+    var status = widget._teacherService.addTeacher(teacher);
 
     status.then((value) => value == true
-        ? Toast.show("Student Added", context,
+        ? Toast.show("Teacher Added", context,
             gravity: Toast.CENTER, duration: Toast.LENGTH_LONG)
         : Toast.show("Add Error", context,
             gravity: Toast.CENTER, duration: Toast.LENGTH_LONG));
   }
 
   void get({required String id}) async {
-    Student? student;
+    Teacher? teacher;
 
-    var data = widget._studentService.getStudent(id: id);
+    var data = widget._teacherService.getTeacher(id: id);
 
     await data.then((value) {
-      student = value;
+      teacher = value;
     });
   }
 
   void delete({required String id}) async {
-    var status = widget._studentService.deleteStudent(id: id);
+    var status = widget._teacherService.deleteTeacher(id: id);
 
     status.then((value) => value == true
-        ? Toast.show("Student Deleted", context,
+        ? Toast.show("Teacher Deleted", context,
             gravity: Toast.CENTER, duration: Toast.LENGTH_LONG)
         : Toast.show("Delete Error", context,
             gravity: Toast.CENTER, duration: Toast.LENGTH_LONG));
