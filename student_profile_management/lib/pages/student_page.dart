@@ -68,12 +68,12 @@ class _StudentPageState extends State<StudentPage> {
 
   void show() async {
     Future<List<Student>> list = widget._studentService.getStudentList();
-
     await list.then((value) {
       for (var item in value) {
         studentsList.add(item);
       }
     });
+    print(studentsList.length);
   }
 
   void add({required Student student}) {

@@ -9,7 +9,10 @@ class StudentService {
   static const String COLLECTION_PATH = "users";
 
   const StudentService();
-
+/*===============================================
+                 Business functions
+  ===============================================
+*/
 //add student details to firebase storage
   Future<bool?> addStudent(Student student) async {
     bool? status;
