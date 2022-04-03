@@ -6,10 +6,12 @@ class User {
   final String email;
   final String userType;
 
-  const User(this.id,
-      {required this.name,
-      required this.userName,
-      required this.email,
-      required this.password,
-      required this.userType});
+  const User(
+    this.id,
+    this.userType, {
+    required this.name,
+    required this.userName,
+    required this.email,
+    required this.password,
+  });
 }
