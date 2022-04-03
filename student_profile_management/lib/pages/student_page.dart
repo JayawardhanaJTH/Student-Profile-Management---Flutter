@@ -4,19 +4,19 @@ import 'package:student_profile_management/services/studentService.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:toast/toast.dart';
 
-class Home extends StatefulWidget {
-  static const homeRoute = "/";
+class StudentPage extends StatefulWidget {
+  static const homeRoute = "/student";
   final StudentService _studentService;
 
-  const Home({Key? key})
+  const StudentPage({Key? key})
       : _studentService = const StudentService(),
         super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<StudentPage> createState() => _StudentPageState();
 }
 
-class _HomeState extends State<Home> {
+class _StudentPageState extends State<StudentPage> {
   final List<Student> studentsList = [];
 
   @override

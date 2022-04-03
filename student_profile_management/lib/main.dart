@@ -1,7 +1,7 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:student_profile_management/connection/database.dart';
-import 'package:student_profile_management/pages/home.dart';
+import 'package:student_profile_management/pages/student_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
@@ -31,9 +31,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: Home.homeRoute,
+      initialRoute: StudentPage.homeRoute,
       routes: {
-        Home.homeRoute: (context) => const Home(),
+        StudentPage.homeRoute: (context) => const StudentPage(),
       },
     );
   }
