@@ -1,15 +1,15 @@
 import 'package:student_profile_management/models/user.dart';
 
-class Student extends User {
-  final int rank;
+class Teacher extends User {
+  final String contact;
 
-  Student(
+  const Teacher(
       {required String name,
       required String userName,
       required String email,
       required String password,
       required String userType,
-      required this.rank})
+      required this.contact})
       : super(
             name: name,
             userName: userName,
