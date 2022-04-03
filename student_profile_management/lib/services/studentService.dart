@@ -6,7 +6,7 @@ import 'package:student_profile_management/models/student.dart';
 
 class StudentService {
   //user(student and teacher) data storage collection path name
-  static const String COLLECTION_PATH = "users";
+  static const String COLLECTION_PATH = "students";
 
   const StudentService();
 /*===============================================
@@ -42,16 +42,16 @@ class StudentService {
     List<Student> studentList = [];
 
     await Database.getCollectionRef(path: COLLECTION_PATH)
+        .orderBy('rank', descending: true)
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
         studentList.add(
-          Student(doc.id,
+          Student(doc.id, doc['userType'],
               name: doc['name'],
               userName: doc['userName'],
               email: doc['email'],
               password: doc['password'],
-              userType: doc['userType'],
               rank: doc['rank']),
         );
       });
@@ -70,12 +70,11 @@ class StudentService {
         .then((value) {
       Map<String, dynamic> data = value.data() as Map<String, dynamic>;
 
-      student = Student(id,
+      student = Student(id, data['userType'],
           name: data['name'],
           userName: data['userName'],
           email: data['email'],
           password: data['password'],
-          userType: data['userType'],
           rank: data['rank']);
     });
 
