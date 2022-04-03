@@ -1,10 +1,10 @@
 class Student {
-  late String studentName;
-  late String email;
-  late String password;
-  late int rank;
-  late String userName;
-  late String userType;
+  final String studentName;
+  final String email;
+  final String password;
+  final int rank;
+  final String userName;
+  final String userType;
 
   Student(
       {required this.studentName,
