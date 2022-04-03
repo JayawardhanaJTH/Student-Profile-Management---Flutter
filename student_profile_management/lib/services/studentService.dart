@@ -1,47 +1,32 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
+import 'package:student_profile_management/connection/database.dart';
+import 'package:student_profile_management/models/student.dart';
 
-// import 'package:student_profile_management/models/student.dart';
+class StudentService {
+  static const String COLLECTION_PATH = "users";
 
-// class StudentService {
-//   final String fireStoreCollectionName = 'students';
+  const StudentService();
 
-//   addStudent(Student student) async {
-//     try {
-      
-//       FirebaseFirestore.instance.runTransaction((Transaction transaction) async {
-//         await FirebaseFirestore.instance
-//             .collection(fireStoreCollectionName)
-//             .document
-//             .(student.toJson());
-//       });
-//     } catch (e) {
-//       print(e.toString());
-//     }
-//   }
+  Future<bool?> addStudent(Student student) async {
+    bool status = false;
+    var password = md5.convert(utf8.encode(student.password));
 
-//   updateStudent(Student student) {
-//     try {
-//       Firestore.instance.runTransaction((transaction) async {
-//         await transaction.update(student.documentReference, student.toJson());
-//       });
-//     } catch (e) {
-//       print(e.toString());
-//     }
-//   }
+    Map<String, dynamic> data = {
+      "studentName": student.studentName,
+      "rank": student.rank,
+      "password": password.toString(),
+      "userName": student.userName,
+      "userType": student.userType,
+      "email": student.email
+    };
 
-//   deleteStudent(Student student) {
-//     Firestore.instance.runTransaction(
-//       (Transaction transaction) async{
-//         await transaction.delete(student.documentReference);
-//       }
-//     )
-//   }
+    await Database.getCollectionRef(path: COLLECTION_PATH)
+        .doc()
+        .set(data)
+        .whenComplete(() => status = true)
+        .onError((error, stackTrace) => status = false);
 
-//   Student getStudent(int id) {
-//     return new Student(studentName: 'studentName', grade: 2);
-//   }
-
-//   List<Student> getStudentList() {
-//     return Firestore.instance.collection(fireStoreCollectionName).snapshots();
-//   }
-// }
+    return status;
+  }
+}
