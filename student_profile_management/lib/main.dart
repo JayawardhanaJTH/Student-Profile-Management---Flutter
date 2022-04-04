@@ -1,6 +1,7 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:student_profile_management/connection/database.dart';
+import 'package:student_profile_management/pages/admin_home.dart';
 import 'package:student_profile_management/pages/student_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:student_profile_management/pages/teacher_page.dart';
@@ -32,10 +33,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: TeacherPage.teacherRoute,
+      initialRoute: AdminHome.adminHomeRoute,
       routes: {
         StudentPage.studentRoute: (context) => const StudentPage(),
         TeacherPage.teacherRoute: (context) => const TeacherPage(),
+        AdminHome.adminHomeRoute: (context) => const AdminHome(),
       },
     );
   }
