@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:student_profile_management/connection/database.dart';
 import 'package:student_profile_management/models/teacher.dart';
 import 'package:student_profile_management/pages/addStudent.dart';
@@ -20,11 +21,14 @@ Future<void> main() async {
     ),
   );
   Database.createDatabase();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  final Color _primaryColor = HexColor('#DC54FE');
+  final Color _accentColor = HexColor('#BA02AE');
+
+  MyApp({Key key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
