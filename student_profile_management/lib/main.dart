@@ -1,8 +1,12 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:student_profile_management/connection/database.dart';
-import 'package:student_profile_management/pages/student_page.dart';
+import 'package:student_profile_management/models/teacher.dart';
+import 'package:student_profile_management/pages/addStudent.dart';
+import 'package:student_profile_management/pages/admin_home.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:student_profile_management/pages/student_page.dart';
 import 'package:student_profile_management/pages/teacher_page.dart';
 
 Future<void> main() async {
@@ -17,11 +21,14 @@ Future<void> main() async {
     ),
   );
   Database.createDatabase();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key key}) : super(key: key);
+  final Color _primaryColor = HexColor('#DC54FE');
+  final Color _accentColor = HexColor('#BA02AE');
+
+  MyApp({Key key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -32,10 +39,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: TeacherPage.teacherRoute,
+      initialRoute: StudentPage.studentRoute,
       routes: {
+        AdminHome.adminHomeRoute: (context) => const AdminHome(),
+        AddStudent.addStudentRoute: (context) => const AddStudent(),
         StudentPage.studentRoute: (context) => const StudentPage(),
-        TeacherPage.teacherRoute: (context) => const TeacherPage(),
+        TeacherPage.teacherRoute: (context) => const TeacherPage()
       },
     );
   }

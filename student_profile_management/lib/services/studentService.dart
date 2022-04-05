@@ -6,7 +6,7 @@ import 'package:student_profile_management/models/student.dart';
 
 class StudentService {
   //user(student and teacher) data storage collection path name
-  static const String COLLECTION_PATH = "students";
+  static const String COLLECTION_PATH = "users";
 
   const StudentService();
 /*===============================================
