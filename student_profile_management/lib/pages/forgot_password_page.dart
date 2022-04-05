@@ -8,6 +8,8 @@ import 'forgot_password_verification_page.dart';
 import 'loging_page.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
+  static const String frogotPassword = "/frogotPassword";
+
   const ForgotPasswordPage({Key? key}) : super(key: key);
 
   @override

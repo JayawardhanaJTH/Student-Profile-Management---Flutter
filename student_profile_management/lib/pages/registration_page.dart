@@ -6,6 +6,7 @@ import 'package:student_profile_management/pages/widgets/header_page.dart';
 import 'common/theme_helper.dart';
 
 class RegistrationPage extends StatefulWidget {
+  static const String registrationRoute = "/register";
   const RegistrationPage({Key? key}) : super(key: key);
 
   @override

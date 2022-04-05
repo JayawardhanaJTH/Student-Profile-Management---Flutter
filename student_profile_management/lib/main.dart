@@ -6,8 +6,13 @@ import 'package:student_profile_management/models/teacher.dart';
 import 'package:student_profile_management/pages/addStudent.dart';
 import 'package:student_profile_management/pages/admin_home.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:student_profile_management/pages/forgot_password_page.dart';
+import 'package:student_profile_management/pages/forgot_password_verification_page.dart';
+import 'package:student_profile_management/pages/loging_page.dart';
+import 'package:student_profile_management/pages/registration_page.dart';
 import 'package:student_profile_management/pages/student_page.dart';
 import 'package:student_profile_management/pages/teacher_page.dart';
+import 'package:student_profile_management/services/loginService.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,10 +42,20 @@ class MyApp extends StatelessWidget {
       title: 'Student Management',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: _primaryColor,
+        accentColor: _accentColor,
+        scaffoldBackgroundColor: Colors.grey.shade100,
+        primarySwatch: Colors.grey,
       ),
-      initialRoute: StudentPage.studentRoute,
+      initialRoute: LoginPage.LoginRoute,
       routes: {
+        LoginPage.LoginRoute: (context) => const LoginPage(),
+        RegistrationPage.registrationRoute: (context) =>
+            const RegistrationPage(),
+        ForgotPasswordPage.frogotPassword: (context) =>
+            const ForgotPasswordPage(),
+        ForgotPasswordVerificationPage.frogotPasswordConf: (context) =>
+            const ForgotPasswordVerificationPage(),
         AdminHome.adminHomeRoute: (context) => const AdminHome(),
         AddStudent.addStudentRoute: (context) => const AddStudent(),
         StudentPage.studentRoute: (context) => const StudentPage(),
