@@ -16,6 +16,9 @@ dependencies:
   toast: ^0.1.5
   fluttertoast: ^8.0.9
   crypto: ^3.0.1
+  hexcolor: ^2.0.6
+  otp_text_field: ^1.1.2
+  font_awesome_flutter: ^10.1.0
   
   cupertino_icons: ^1.0.2
 
