@@ -3,7 +3,7 @@ import 'package:student_profile_management/models/user.dart';
 class Teacher extends User {
   final String contact;
 
-  const Teacher(String id, String userType,
+  const Teacher(String? id, String userType,
       {required String name,
       required String userName,
       required String email,

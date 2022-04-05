@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_profile_management/pages/addStudent.dart';
 
 class AdminHome extends StatelessWidget {
   static const String adminHomeRoute = '/admin';
@@ -40,7 +41,10 @@ class AdminHome extends StatelessWidget {
                   ),
                   IconButton(
                     iconSize: 40,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(AddStudent.addStudentRoute);
+                    },
                     icon: const Icon(Icons.add_task_outlined),
                     color: Colors.white,
                     hoverColor: Colors.white30,
