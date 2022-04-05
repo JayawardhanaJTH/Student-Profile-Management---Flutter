@@ -84,7 +84,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         Container(
                           child: TextFormField(
                             decoration: ThemeHelper().textInputDecoration(
-                                'First Name', 'Enter your first name'),
+                                'Full Name', 'Enter your full name'),
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
@@ -94,7 +94,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         Container(
                           child: TextFormField(
                             decoration: ThemeHelper().textInputDecoration(
-                                'Last Name', 'Enter your last name'),
+                                'User Name', 'Enter your user name'),
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
@@ -118,13 +118,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         const SizedBox(height: 20.0),
                         Container(
                           child: TextFormField(
+                            obscureText: true,
                             decoration: ThemeHelper().textInputDecoration(
-                                "Mobile Number", "Enter your mobile number"),
-                            keyboardType: TextInputType.phone,
+                                "Password*", "Enter your password"),
                             validator: (val) {
-                              if (!(val!.isEmpty) &&
-                                  !RegExp(r"^(\d+)*$").hasMatch(val)) {
-                                return "Enter a valid phone number";
+                              if (val!.isEmpty) {
+                                return "Please enter your password";
                               }
                               return null;
                             },
@@ -134,12 +133,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         const SizedBox(height: 20.0),
                         Container(
                           child: TextFormField(
-                            obscureText: true,
                             decoration: ThemeHelper().textInputDecoration(
-                                "Password*", "Enter your password"),
+                                "Mobile Number", "Enter your mobile number"),
+                            keyboardType: TextInputType.phone,
                             validator: (val) {
-                              if (val!.isEmpty) {
-                                return "Please enter your password";
+                              if (!(val!.isEmpty) &&
+                                  !RegExp(r"^(\d+)*$").hasMatch(val)) {
+                                return "Enter a valid phone number";
                               }
                               return null;
                             },

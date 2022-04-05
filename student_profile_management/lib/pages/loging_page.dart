@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:student_profile_management/pages/registration_page.dart';
+import 'package:student_profile_management/services/loginService.dart';
 
 import 'common/theme_helper.dart';
 import 'forgot_password_page.dart';
@@ -18,7 +19,17 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final double _headerHeight = 250;
-  final Key _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
+
+  String? _userName;
+  String? _password;
+
+  void onSubmit() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      await Login().loginUser(userName: _userName, password: _password);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +58,22 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       Container(
-                        child: TextField(
+                        child: TextFormField(
                           decoration: ThemeHelper().textInputDecoration(
                             'Username',
                             'Enter Your Username',
                           ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter user name";
+                            }
+                            return null;
+                          },
+                          onSaved: (String? value) {
+                            setState(() {
+                              if (value != null) _userName = value;
+                            });
+                          },
                         ),
                         decoration: ThemeHelper().inputBoxDecorationShaddow(),
                       ),
@@ -59,10 +81,21 @@ class _LoginPageState extends State<LoginPage> {
                         height: 30.0,
                       ),
                       Container(
-                        child: TextField(
+                        child: TextFormField(
                           obscureText: true,
                           decoration: ThemeHelper().textInputDecoration(
                               'Password', 'Enter Your Password'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter password";
+                            }
+                            return null;
+                          },
+                          onSaved: (String? value) {
+                            setState(() {
+                              if (value != null) _password = value;
+                            });
+                          },
                         ),
                         decoration: ThemeHelper().inputBoxDecorationShaddow(),
                       ),
@@ -103,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           onPressed: () {
-                            //After successful login will redirect to profile page.
+                            onSubmit();
                             //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProfilePage()));
                           },
                         ),
