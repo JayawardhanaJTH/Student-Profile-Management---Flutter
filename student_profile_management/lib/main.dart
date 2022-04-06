@@ -1,9 +1,10 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:student_profile_management/connection/database.dart';
-import 'package:student_profile_management/pages/UI/testEditProfile.dart';
-import 'package:student_profile_management/pages/UI/testProfileUI.dart';
+import 'package:student_profile_management/pages/EditProfile.dart';
+import 'package:student_profile_management/pages/UserProfileUI.dart';
 import 'package:student_profile_management/pages/addStudent.dart';
 import 'package:student_profile_management/pages/admin_home.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,7 +14,7 @@ import 'package:student_profile_management/pages/loging_page.dart';
 import 'package:student_profile_management/pages/registration_page.dart';
 import 'package:student_profile_management/pages/student_page.dart';
 import 'package:student_profile_management/pages/teacher_page.dart';
-import 'package:student_profile_management/pages/UI/testAdmin_page.dart';
+import 'package:student_profile_management/pages/Admin_page.dart';
 import 'package:student_profile_management/pages/UI/testListUI.dart';
 
 Future<void> main() async {
@@ -28,6 +29,7 @@ Future<void> main() async {
     ),
   );
   Database.createDatabase();
+  await GetStorage.init();
   runApp(MyApp());
 }
 
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
       ),
       // initialRoute: AdminHome.adminHomeRoute,
-      initialRoute: TestAdminPage.testAdminHomeRoute,
+      initialRoute: LoginPage.LoginRoute,
       routes: {
         LoginPage.LoginRoute: (context) => const LoginPage(),
         RegistrationPage.registrationRoute: (context) =>
@@ -65,8 +67,10 @@ class MyApp extends StatelessWidget {
         TeacherPage.teacherRoute: (context) => const TeacherPage(),
         TestAdminPage.testAdminHomeRoute: (context) => const TestAdminPage(),
         TestStudentUI.testStudentUIRoute: (context) => const TestStudentUI(),
-        TestProfileUIPage.profileUIRoute: (context) => const TestProfileUIPage(),
-        TestEditProfile.testEditProfileRoute: (context) => const TestEditProfile(),
+        TestProfileUIPage.profileUIRoute: (context) =>
+            const TestProfileUIPage(),
+        TestEditProfile.testEditProfileRoute: (context) =>
+            const TestEditProfile(),
       },
     );
   }

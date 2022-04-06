@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:student_profile_management/pages/UI/testEditProfile.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:student_profile_management/models/student.dart';
+import 'package:student_profile_management/models/teacher.dart';
+import 'package:student_profile_management/models/user.dart';
+import 'package:student_profile_management/pages/EditProfile.dart';
 import 'package:student_profile_management/pages/UI/testListUI.dart';
+import 'package:student_profile_management/pages/loging_page.dart';
 import 'package:student_profile_management/pages/widgets/header_page.dart';
 
-import '../common/theme_helper.dart';
-
+import 'common/theme_helper.dart';
 
 class TestProfileUIPage extends StatefulWidget {
-  static const String profileUIRoute = "/Profile";
+  static const String profileUIRoute = "/profile";
+
   const TestProfileUIPage({Key? key}) : super(key: key);
 
   @override
@@ -23,8 +28,32 @@ class _TestProfileUIPageState extends State<TestProfileUIPage> {
 
   var name = "test";
 
+  String? _userName;
+  String? _email;
+  String? _contact;
+  String? _userType;
+  int? _rank;
+
+  final box = GetStorage();
+
   @override
   Widget build(BuildContext context) {
+    Teacher? _teacher;
+    Student? _student;
+
+    if (box.read('userType') == "Student") {
+      _student = box.read("user");
+      _userName = _student!.userName;
+      _email = _student.email;
+      _rank = _student.rank;
+      _userType = "Student";
+    } else {
+      _teacher = box.read("user");
+      _userName = _teacher!.userName;
+      _contact = _teacher.contact;
+      _email = _teacher.email;
+      _userType = "Teacher";
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -40,11 +69,8 @@ class _TestProfileUIPageState extends State<TestProfileUIPage> {
               iconSize: 30,
               onPressed: () {
                 Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => TestStudentUI()
-                    ),
-                        (Route<dynamic> route) => false
-                );
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    (Route<dynamic> route) => false);
               },
               icon: const Icon(Icons.arrow_back_ios_rounded),
               color: Colors.white,
@@ -67,7 +93,7 @@ class _TestProfileUIPageState extends State<TestProfileUIPage> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100),
                                   border:
-                                  Border.all(width: 5, color: Colors.white),
+                                      Border.all(width: 5, color: Colors.white),
                                   color: Colors.white,
                                   boxShadow: const [
                                     BoxShadow(
@@ -89,35 +115,41 @@ class _TestProfileUIPageState extends State<TestProfileUIPage> {
                         const SizedBox(
                           height: 10,
                         ),
-                        const Text(
-                          'Profile Name',
-                          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                        Text(
+                          _userName.toString(),
+                          style: const TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(
                           height: 30,
                         ),
                         const SizedBox(height: 20.0),
-                        Container(
-                        ),
-                        const Text(
-                          'E-mail Address : ',
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),
+                        Container(),
+                        Text(
+                          'E-mail Address : $_email',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         const SizedBox(height: 20.0),
-                          const Text(
-                            'Mobile Number : ',
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
+                        Text(
+                          _userType == "Student"
+                              ? 'Rank : $_rank'
+                              : 'Mobile Number : $_contact',
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
                         const SizedBox(height: 20.0),
                         const SizedBox(height: 20.0),
                         Container(
                           decoration:
-                          ThemeHelper().buttonBoxDecoration(context),
+                              ThemeHelper().buttonBoxDecoration(context),
                           child: ElevatedButton(
                             style: ThemeHelper().buttonStyle(),
                             child: Padding(
                               padding:
-                              const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                                  const EdgeInsets.fromLTRB(40, 10, 40, 10),
                               child: Text(
                                 "Edit".toUpperCase(),
                                 style: const TextStyle(
@@ -128,12 +160,8 @@ class _TestProfileUIPageState extends State<TestProfileUIPage> {
                               ),
                             ),
                             onPressed: () {
-                                Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                        builder: (context) => TestEditProfile()
-                                    ),
-                                        (Route<dynamic> route) => false
-                                );
+                              Navigator.of(context).pushNamed(
+                                  TestEditProfile.testEditProfileRoute);
                             },
                           ),
                         ),

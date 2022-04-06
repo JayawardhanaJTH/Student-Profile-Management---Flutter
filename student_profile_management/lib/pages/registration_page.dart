@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:student_profile_management/models/student.dart';
 import 'package:student_profile_management/models/teacher.dart';
+import 'package:student_profile_management/pages/loging_page.dart';
 import 'package:student_profile_management/pages/widgets/header_page.dart';
 import 'package:student_profile_management/services/studentService.dart';
 import 'package:student_profile_management/services/teacherService.dart';
@@ -55,6 +56,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
         Toast.show("Teacher Added", context,
             gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => LoginPage()),
+            (Route<dynamic> route) => false);
       }
     }
   }
@@ -135,7 +140,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 _name = value;
                               });
                             },
-                            
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),

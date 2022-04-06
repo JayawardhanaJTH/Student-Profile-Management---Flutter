@@ -96,4 +96,25 @@ class StudentService {
 
     return status;
   }
+
+  Future<bool?> updateStudent({required Student student}) async {
+    bool state = false;
+
+    var password = md5.convert(utf8.encode(student.password));
+
+    Map<String, dynamic> data = {
+      "name": student.name,
+      "rank": student.rank,
+      "password": password.toString(),
+      "userName": student.userName,
+      "userType": student.userType,
+      "email": student.email
+    };
+
+    await Database.getCollectionRef(path: COLLECTION_PATH)
+        .doc(student.id)
+        .update(data)
+        .then((value) => state = true)
+        .onError((error, stackTrace) => state = false);
+  }
 }
