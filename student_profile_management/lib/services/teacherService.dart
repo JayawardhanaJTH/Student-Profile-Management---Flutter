@@ -100,8 +100,7 @@ class TeacherService {
     return status;
   }
 
-  Future<bool?> updateTeacher(
-      {required String id, required Teacher teacher}) async {
+  Future<bool?> updateTeacher({required Teacher teacher}) async {
     bool state = false;
 
     var password = md5.convert(utf8.encode(teacher.password));
@@ -116,7 +115,7 @@ class TeacherService {
     };
 
     await Database.getCollectionRef(path: COLLECTION_PATH)
-        .doc(id)
+        .doc(teacher.id)
         .update(data)
         .then((value) => state = true)
         .onError((error, stackTrace) => state = false);

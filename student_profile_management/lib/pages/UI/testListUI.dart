@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:student_profile_management/pages/UI/testAdmin_page.dart';
-import 'package:student_profile_management/pages/UI/testProfileUI.dart';
+import 'package:student_profile_management/pages/Admin_page.dart';
+import 'package:student_profile_management/pages/UserProfileUI.dart';
 import 'package:student_profile_management/pages/widgets/header_page.dart';
 
 class TestStudentUI extends  StatefulWidget{
