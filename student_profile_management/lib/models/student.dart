@@ -8,7 +8,7 @@ class Student extends User {
       required String userName,
       required String email,
       required String password,
-      required this.rank})
+      this.rank = 0})
       : super(
           id,
           userType,

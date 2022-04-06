@@ -1,8 +1,19 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:student_profile_management/models/student.dart';
+import 'package:student_profile_management/models/teacher.dart';
+import 'package:student_profile_management/models/user.dart';
+import 'package:student_profile_management/pages/admin_home.dart';
 import 'package:student_profile_management/pages/registration_page.dart';
+import 'package:student_profile_management/pages/student_page.dart';
+import 'package:student_profile_management/pages/teacher_page.dart';
+import 'package:student_profile_management/services/loginService.dart';
+import 'package:student_profile_management/services/studentService.dart';
+import 'package:student_profile_management/services/teacherService.dart';
 
 import 'common/theme_helper.dart';
 import 'forgot_password_page.dart';
@@ -18,7 +29,50 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final double _headerHeight = 250;
-  final Key _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
+
+  String? _userName;
+  String? _password;
+  bool? _error = false;
+  User? data;
+
+  void onSubmit() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      data = await Login().loginUser(userName: _userName, password: _password);
+
+      if (data != null) {
+        if (data!.userType == "Teacher") {
+          Teacher? teacher;
+
+          var obj = const TeacherService().getTeacher(id: data!.id.toString());
+
+          await obj.then((value) {
+            teacher = value;
+          });
+
+          Navigator.of(context).pushNamed(TeacherPage.teacherRoute,
+              arguments: {'Teacher': teacher});
+        } else if (data!.userType == "Student") {
+          Student? student;
+
+          var obj = StudentService().getStudent(id: data!.id.toString());
+
+          await obj.then((value) {
+            student = value;
+          });
+          Navigator.of(context).pushNamed(StudentPage.studentRoute,
+              arguments: {'Student': student});
+        } else if (data!.userType == "Admin") {
+          Navigator.of(context).pushNamed(AdminHome.adminHomeRoute);
+        }
+      } else {
+        setState(() {
+          _error = true;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +101,22 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     children: [
                       Container(
-                        child: TextField(
+                        child: TextFormField(
                           decoration: ThemeHelper().textInputDecoration(
                             'Username',
                             'Enter Your Username',
                           ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter user name";
+                            }
+                            return null;
+                          },
+                          onSaved: (String? value) {
+                            setState(() {
+                              if (value != null) _userName = value;
+                            });
+                          },
                         ),
                         decoration: ThemeHelper().inputBoxDecorationShaddow(),
                       ),
@@ -59,10 +124,21 @@ class _LoginPageState extends State<LoginPage> {
                         height: 30.0,
                       ),
                       Container(
-                        child: TextField(
+                        child: TextFormField(
                           obscureText: true,
                           decoration: ThemeHelper().textInputDecoration(
                               'Password', 'Enter Your Password'),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter password";
+                            }
+                            return null;
+                          },
+                          onSaved: (String? value) {
+                            setState(() {
+                              if (value != null) _password = value;
+                            });
+                          },
                         ),
                         decoration: ThemeHelper().inputBoxDecorationShaddow(),
                       ),
@@ -103,27 +179,43 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           onPressed: () {
-                            //After successful login will redirect to profile page.
+                            _error = false;
+                            onSubmit();
                             //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProfilePage()));
                           },
                         ),
                       ),
                       Container(
-                          margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                          child: Text.rich(TextSpan(children: [
-                            const TextSpan(text: "Don\'t have an account? "),
-                            TextSpan(
-                              text: 'Create',
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Navigator.pushNamed(context,
-                                      RegistrationPage.registrationRoute);
-                                },
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).accentColor),
-                            )
-                          ])))
+                        margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                        child: Text.rich(
+                          TextSpan(
+                            children: [
+                              const TextSpan(text: "Don\'t have an account? "),
+                              TextSpan(
+                                text: 'Create',
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.pushNamed(context,
+                                        RegistrationPage.registrationRoute);
+                                  },
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).accentColor),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.all(5),
+                        child: Text(
+                          _error == true
+                              ? "The entered user name or password wrong !"
+                              : "",
+                          style:
+                              const TextStyle(fontSize: 20, color: Colors.red),
+                        ),
+                      )
                     ],
                   ),
                 )
