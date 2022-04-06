@@ -99,4 +99,26 @@ class TeacherService {
 
     return status;
   }
+
+  Future<bool?> updateTeacher(
+      {required String id, required Teacher teacher}) async {
+    bool state = false;
+
+    var password = md5.convert(utf8.encode(teacher.password));
+
+    Map<String, dynamic> data = {
+      "name": teacher.name,
+      "contact": teacher.contact,
+      "password": password.toString(),
+      "userName": teacher.userName,
+      "userType": teacher.userType,
+      "email": teacher.email
+    };
+
+    await Database.getCollectionRef(path: COLLECTION_PATH)
+        .doc(id)
+        .update(data)
+        .then((value) => state = true)
+        .onError((error, stackTrace) => state = false);
+  }
 }
