@@ -4,13 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:student_profile_management/models/student.dart';
 import 'package:student_profile_management/models/teacher.dart';
 import 'package:student_profile_management/models/user.dart';
-import 'package:student_profile_management/pages/admin_home.dart';
+import 'package:student_profile_management/pages/Admin_page.dart';
+import 'package:student_profile_management/pages/UserProfileUI.dart';
 import 'package:student_profile_management/pages/registration_page.dart';
-import 'package:student_profile_management/pages/student_page.dart';
-import 'package:student_profile_management/pages/teacher_page.dart';
 import 'package:student_profile_management/services/loginService.dart';
 import 'package:student_profile_management/services/studentService.dart';
 import 'package:student_profile_management/services/teacherService.dart';
@@ -36,6 +36,8 @@ class _LoginPageState extends State<LoginPage> {
   bool? _error = false;
   User? data;
 
+  final box = GetStorage();
+
   void onSubmit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
@@ -51,8 +53,11 @@ class _LoginPageState extends State<LoginPage> {
             teacher = value;
           });
 
-          Navigator.of(context).pushNamed(TeacherPage.teacherRoute,
-              arguments: {'Teacher': teacher});
+          box.write("user", teacher);
+          box.write("userType", "Teacher");
+
+          Navigator.of(context).pushNamed(TestProfileUIPage.profileUIRoute);
+
         } else if (data!.userType == "Student") {
           Student? student;
 
@@ -61,10 +66,13 @@ class _LoginPageState extends State<LoginPage> {
           await obj.then((value) {
             student = value;
           });
-          Navigator.of(context).pushNamed(StudentPage.studentRoute,
-              arguments: {'Student': student});
+          box.write("user", student);
+          box.write("userType", "Student");
+
+          Navigator.of(context).pushNamed(TestProfileUIPage.profileUIRoute);
+          
         } else if (data!.userType == "Admin") {
-          Navigator.of(context).pushNamed(AdminHome.adminHomeRoute);
+          Navigator.of(context).pushNamed(TestAdminPage.testAdminHomeRoute);
         }
       } else {
         setState(() {
