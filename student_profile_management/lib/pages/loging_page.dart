@@ -1,9 +1,19 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:student_profile_management/models/student.dart';
+import 'package:student_profile_management/models/teacher.dart';
+import 'package:student_profile_management/models/user.dart';
+import 'package:student_profile_management/pages/admin_home.dart';
 import 'package:student_profile_management/pages/registration_page.dart';
+import 'package:student_profile_management/pages/student_page.dart';
+import 'package:student_profile_management/pages/teacher_page.dart';
 import 'package:student_profile_management/services/loginService.dart';
+import 'package:student_profile_management/services/studentService.dart';
+import 'package:student_profile_management/services/teacherService.dart';
 
 import 'common/theme_helper.dart';
 import 'forgot_password_page.dart';
@@ -23,11 +33,44 @@ class _LoginPageState extends State<LoginPage> {
 
   String? _userName;
   String? _password;
+  bool? _error = false;
+  User? data;
 
   void onSubmit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      await Login().loginUser(userName: _userName, password: _password);
+      data = await Login().loginUser(userName: _userName, password: _password);
+
+      if (data != null) {
+        if (data!.userType == "Teacher") {
+          Teacher? teacher;
+
+          var obj = const TeacherService().getTeacher(id: data!.id.toString());
+
+          await obj.then((value) {
+            teacher = value;
+          });
+
+          Navigator.of(context).pushNamed(TeacherPage.teacherRoute,
+              arguments: {'Teacher': teacher});
+        } else if (data!.userType == "Student") {
+          Student? student;
+
+          var obj = StudentService().getStudent(id: data!.id.toString());
+
+          await obj.then((value) {
+            student = value;
+          });
+          Navigator.of(context).pushNamed(StudentPage.studentRoute,
+              arguments: {'Student': student});
+        } else if (data!.userType == "Admin") {
+          Navigator.of(context).pushNamed(AdminHome.adminHomeRoute);
+        }
+      } else {
+        setState(() {
+          _error = true;
+        });
+      }
     }
   }
 
@@ -136,27 +179,43 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           onPressed: () {
+                            _error = false;
                             onSubmit();
                             //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProfilePage()));
                           },
                         ),
                       ),
                       Container(
-                          margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
-                          child: Text.rich(TextSpan(children: [
-                            const TextSpan(text: "Don\'t have an account? "),
-                            TextSpan(
-                              text: 'Create',
-                              recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Navigator.pushNamed(context,
-                                      RegistrationPage.registrationRoute);
-                                },
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).accentColor),
-                            )
-                          ])))
+                        margin: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+                        child: Text.rich(
+                          TextSpan(
+                            children: [
+                              const TextSpan(text: "Don\'t have an account? "),
+                              TextSpan(
+                                text: 'Create',
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Navigator.pushNamed(context,
+                                        RegistrationPage.registrationRoute);
+                                  },
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).accentColor),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.all(5),
+                        child: Text(
+                          _error == true
+                              ? "The entered user name or password wrong !"
+                              : "",
+                          style:
+                              const TextStyle(fontSize: 20, color: Colors.red),
+                        ),
+                      )
                     ],
                   ),
                 )
