@@ -4,7 +4,7 @@ import 'package:student_profile_management/models/student.dart';
 import 'package:student_profile_management/models/teacher.dart';
 import 'package:student_profile_management/models/user.dart';
 import 'package:student_profile_management/pages/EditProfile.dart';
-import 'package:student_profile_management/pages/UI/testListUI.dart';
+import 'package:student_profile_management/pages/StudentListUI.dart';
 import 'package:student_profile_management/pages/loging_page.dart';
 import 'package:student_profile_management/pages/widgets/header_page.dart';
 

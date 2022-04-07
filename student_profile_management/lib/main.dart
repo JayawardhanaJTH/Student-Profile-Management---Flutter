@@ -15,7 +15,7 @@ import 'package:student_profile_management/pages/registration_page.dart';
 import 'package:student_profile_management/pages/student_page.dart';
 import 'package:student_profile_management/pages/teacher_page.dart';
 import 'package:student_profile_management/pages/Admin_page.dart';
-import 'package:student_profile_management/pages/UI/testListUI.dart';
+import 'package:student_profile_management/pages/StudentListUI.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
         StudentPage.studentRoute: (context) => const StudentPage(),
         TeacherPage.teacherRoute: (context) => const TeacherPage(),
         TestAdminPage.testAdminHomeRoute: (context) => const TestAdminPage(),
-        TestStudentUI.testStudentUIRoute: (context) => const TestStudentUI(),
+        TestStudentListUI.testStudentUIRoute: (context) => const TestStudentListUI(),
         TestProfileUIPage.profileUIRoute: (context) =>
             const TestProfileUIPage(),
         TestEditProfile.testEditProfileRoute: (context) =>

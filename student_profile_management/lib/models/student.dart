@@ -17,4 +17,5 @@ class Student extends User {
           email: email,
           password: password,
         );
+
 }

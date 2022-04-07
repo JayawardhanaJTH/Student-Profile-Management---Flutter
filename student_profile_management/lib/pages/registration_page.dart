@@ -57,10 +57,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
         Toast.show("Teacher Added", context,
             gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
 
+      }
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => LoginPage()),
             (Route<dynamic> route) => false);
-      }
     }
   }
 

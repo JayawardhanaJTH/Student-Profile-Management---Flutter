@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:student_profile_management/pages/UI/testListUI.dart';
+import 'package:student_profile_management/pages/StudentListUI.dart';
 import 'package:student_profile_management/pages/widgets/header_page.dart';
 
 class TestAdminPage extends  StatefulWidget{
@@ -66,7 +66,7 @@ class _TestAdminPageState extends State<TestAdminPage>{
                     iconSize: 40,
                     onPressed: () {
                       Navigator.of(context)
-                          .pushNamed(TestStudentUI.testStudentUIRoute);
+                          .pushNamed(TestStudentListUI.testStudentUIRoute);
                     },
                     icon: const Icon(Icons.face),
                     color: Colors.white,
