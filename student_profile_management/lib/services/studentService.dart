@@ -117,4 +117,16 @@ class StudentService {
         .then((value) => state = true)
         .onError((error, stackTrace) => state = false);
   }
+
+  Future<bool?> updateStudentRank(
+      {required String id, required double rank}) async {
+    bool state = false;
+
+    await Database.getCollectionRef(path: COLLECTION_PATH)
+        .doc(id)
+        .update({'rank': rank})
+        .then((value) => state = true)
+        .onError((error, stackTrace) => state = false);
+    return state;
+  }
 }
