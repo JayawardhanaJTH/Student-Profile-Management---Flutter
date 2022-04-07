@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:student_profile_management/models/student.dart';
 import 'package:student_profile_management/pages/StudentListUI.dart';
+import 'package:student_profile_management/pages/UserProfileUI.dart';
 import 'package:student_profile_management/pages/widgets/header_page.dart';
 import 'package:student_profile_management/services/studentService.dart';
 import 'package:toast/toast.dart';
@@ -47,8 +48,7 @@ class _RankState extends State<Rank> {
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
 
           Navigator.of(context).pushNamed(StudentListUI.testStudentUIRoute);
-        }
-        else{
+        } else {
           Toast.show("Error on Update", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         }
@@ -71,6 +71,18 @@ class _RankState extends State<Rank> {
                 height: _headerHeight,
                 child:
                     HeaderWidget(_headerHeight, true, Icons.password_rounded),
+              ),
+              IconButton(
+                padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                iconSize: 30,
+                onPressed: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => TestProfileUIPage()),
+                      (Route<dynamic> route) => false);
+                },
+                icon: const Icon(Icons.arrow_back_ios_rounded),
+                color: Colors.red,
               ),
               SafeArea(
                 child: Container(
@@ -96,8 +108,30 @@ class _RankState extends State<Rank> {
                             const SizedBox(
                               height: 10,
                             ),
+                            Text(
+                              _student!.email.toString(),
+                              style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54),
+                              // textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'Current Rank :  ${_student!.rank.toString()}',
+                              style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black54),
+                              // textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
                             const Text(
-                              'Select 1-5 according to the student progress',
+                              'Select 1-5 according to the student progress ( 1 - bad, 5 - excellent)',
                               style: TextStyle(
                                   // fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -139,7 +173,7 @@ class _RankState extends State<Rank> {
                             ),
                             const SizedBox(height: 20.0),
                             Text(
-                                "Rank : ${rank == null ? "" : rank.toString()}"),
+                                "New Rank : ${rank == null ? "" : rank.toString()}"),
                             const SizedBox(height: 40.0),
                             Container(
                               decoration:

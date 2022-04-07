@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:student_profile_management/pages/StudentListUI.dart';
+import 'package:student_profile_management/pages/loging_page.dart';
 import 'package:student_profile_management/pages/widgets/header_page.dart';
 
-class TestAdminPage extends  StatefulWidget{
+class TestAdminPage extends StatefulWidget {
   static const String testAdminHomeRoute = '/testAdmin';
 
   const TestAdminPage({Key? key}) : super(key: key);
@@ -13,13 +14,11 @@ class TestAdminPage extends  StatefulWidget{
   }
 }
 
-class _TestAdminPageState extends State<TestAdminPage>{
-
+class _TestAdminPageState extends State<TestAdminPage> {
   final double _headerHeight = 200;
   final _formKey = GlobalKey<FormState>();
   bool checkedValue = false;
   bool checkboxValue = false;
-
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +30,19 @@ class _TestAdminPageState extends State<TestAdminPage>{
           children: [
             Container(
               height: _headerHeight,
-              child: HeaderWidget(_headerHeight, true, Icons.admin_panel_settings),
+              child:
+                  HeaderWidget(_headerHeight, true, Icons.admin_panel_settings),
+            ),
+            IconButton(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+              iconSize: 30,
+              onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                    (Route<dynamic> route) => false);
+              },
+              icon: const Icon(Icons.arrow_back_ios_rounded),
+              color: Colors.red,
             ),
             const Text(
               'Admin Panel',
@@ -43,7 +54,6 @@ class _TestAdminPageState extends State<TestAdminPage>{
             Card(
               color: Color.fromARGB(255, 14, 48, 107),
               elevation: 5,
-
               child: Column(
                 children: [
                   const SizedBox(

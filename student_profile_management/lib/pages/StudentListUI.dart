@@ -198,10 +198,15 @@ class _StudentListUIState extends State<StudentListUI> {
               padding: const EdgeInsets.fromLTRB(20, 50, 10, 0),
               iconSize: 30,
               onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (context) => const TestAdminPage()),
-                    (Route<dynamic> route) => false);
+                userType == "Teacher"
+                    ? Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => const TestProfileUIPage()),
+                        (Route<dynamic> route) => false)
+                    : Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) => const TestAdminPage()),
+                        (Route<dynamic> route) => false);
               },
               icon: const Icon(Icons.arrow_back_ios_rounded),
               color: Colors.white,
