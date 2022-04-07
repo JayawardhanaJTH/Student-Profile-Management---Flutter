@@ -185,7 +185,7 @@ class _TestProfileUIPageState extends State<TestProfileUIPage> {
                                   ),
                                   onPressed: () {
                                     Navigator.of(context).pushNamed(
-                                        TestStudentListUI.testStudentUIRoute);
+                                        StudentListUI.testStudentUIRoute);
                                   },
                                 ),
                               )

@@ -35,16 +35,24 @@ class _RankState extends State<Rank> {
 
   final _formKey = GlobalKey<FormState>();
 
-  void onSubmit() {
+  void onSubmit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      // const StudentService().updateStudentRank(id: id!, rank: rank!);
+      var data = const StudentService().updateStudentRank(id: id!, rank: rank!);
 
-      Toast.show("Rank Updated", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      await data.then((value) {
+        if (value == true) {
+          Toast.show("Rank Updated", context,
+              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
 
-      Navigator.of(context).pushNamed(TestStudentListUI.testStudentUIRoute);
+          Navigator.of(context).pushNamed(StudentListUI.testStudentUIRoute);
+        }
+        else{
+          Toast.show("Error on Update", context,
+              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+        }
+      });
     }
   }
 
