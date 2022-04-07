@@ -42,7 +42,7 @@ class StudentService {
     List<Student> studentList = [];
 
     await Database.getCollectionRef(path: COLLECTION_PATH)
-        .orderBy('rank', descending: true)
+        .orderBy('rank')
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
