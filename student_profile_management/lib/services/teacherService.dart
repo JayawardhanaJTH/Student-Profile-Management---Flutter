@@ -43,19 +43,20 @@ class TeacherService {
     List<Teacher> teacherList = [];
 
     await Database.getCollectionRef(path: COLLECTION_PATH)
+        .where('userType', isEqualTo: "Teacher")
         .get()
         .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        teacherList.add(
-          Teacher(doc.id, doc['userType'],
-              name: doc['name'],
-              userName: doc['userName'],
-              email: doc['email'],
-              password: doc['password'],
-              contact: doc['contact']),
-        );
-      });
-    });
+          querySnapshot.docs.forEach((doc) {
+            teacherList.add(
+              Teacher(doc.id, doc['userType'],
+                  name: doc['name'],
+                  userName: doc['userName'],
+                  email: doc['email'],
+                  password: doc['password'],
+                  contact: doc['contact']),
+            );
+          });
+        });
 
     return teacherList;
   }

@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:student_profile_management/connection/database.dart';
 import 'package:student_profile_management/pages/EditProfile.dart';
+import 'package:student_profile_management/pages/TeacherListUI.dart';
 import 'package:student_profile_management/pages/UserProfileUI.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:student_profile_management/pages/forgot_password_page.dart';
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
         TestEditProfile.testEditProfileRoute: (context) =>
             const TestEditProfile(),
         Rank.rankRoute: (context) => const Rank(),
+        TeacherListUI.testTeacherUIRoute: (context) => const TeacherListUI(),
       },
     );
   }

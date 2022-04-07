@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student_profile_management/pages/StudentListUI.dart';
+import 'package:student_profile_management/pages/TeacherListUI.dart';
 import 'package:student_profile_management/pages/loging_page.dart';
 import 'package:student_profile_management/pages/widgets/header_page.dart';
 
@@ -110,7 +111,10 @@ class _TestAdminPageState extends State<TestAdminPage> {
                   ),
                   IconButton(
                     iconSize: 40,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(TeacherListUI.testTeacherUIRoute);
+                    },
                     icon: const Icon(Icons.school),
                     color: Colors.white,
                     hoverColor: Colors.white30,
