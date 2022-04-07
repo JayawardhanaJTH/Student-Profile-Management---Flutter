@@ -2,24 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:student_profile_management/pages/Admin_page.dart';
 import 'package:student_profile_management/pages/UserProfileUI.dart';
 import 'package:student_profile_management/pages/widgets/header_page.dart';
+import 'package:toast/toast.dart';
 
 import '../models/student.dart';
 import '../services/studentService.dart';
 
-class TestStudentListUI extends  StatefulWidget{
+class StudentListUI extends  StatefulWidget{
   static const String testStudentUIRoute = '/testStudentUI';
   final StudentService _studentService;
 
-  const TestStudentListUI({Key? key}) :
+  const StudentListUI({Key? key}) :
         _studentService = const StudentService(),super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _TestStudentListUIState();
+    return _StudentListUIState();
   }
 }
 
-class _TestStudentListUIState extends State<TestStudentListUI> {
+class _StudentListUIState extends State<StudentListUI> {
   final _formKey = GlobalKey<FormState>();
   bool checkedValue = false;
   bool checkboxValue = false;
@@ -40,6 +41,17 @@ class _TestStudentListUIState extends State<TestStudentListUI> {
     setState(() {
       state = true;
     });
+  }
+
+  deleteData({required String id}) async{
+    var status = widget._studentService.deleteStudent(id: id);
+
+    status.then((value) => value == true
+      ? Toast.show("Student Deleted", context,
+        gravity: Toast.CENTER, duration: Toast.LENGTH_LONG)
+        : Toast.show("Delete Error", context,
+        gravity: Toast.CENTER, duration: Toast.LENGTH_LONG)
+    );
   }
 
   @override
@@ -89,9 +101,7 @@ class _TestStudentListUIState extends State<TestStudentListUI> {
                                   height: 55.0,
                                   color: Colors.white,
                                   child: const CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                        "https://images.hindustantimes.com/rf/image_size_630x354/HT/p2/2019/11/17/Pictures/gotabaya-rajapaksa_45b00c0c-0920-11ea-9981-1b3e40a63bbf.jpg"
-                                    ),
+                                    backgroundImage: AssetImage('../lib/images/person.png'),
                                   ),
                                 ),
                                 const SizedBox(
@@ -118,11 +128,11 @@ class _TestStudentListUIState extends State<TestStudentListUI> {
                                       onPressed: () {
                                         Navigator.of(context)
                                             .pushAndRemoveUntil(
-                                            MaterialPageRoute(
-                                                builder: (
-                                                    context) => const TestProfileUIPage()
-                                            ),
-                                                (Route<dynamic> route) => false
+                                                MaterialPageRoute(
+                                            builder: (
+                                              context) => const TestProfileUIPage()
+                                              ),
+                                            (Route<dynamic> route) => false
                                         );
                                       },
                                       color: Colors.red[200],
@@ -140,7 +150,17 @@ class _TestStudentListUIState extends State<TestStudentListUI> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 5.0, vertical: 1.0),
                                     child: FlatButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        deleteData(id: studentsList[index].id.toString());
+                                        Navigator.of(context)
+                                            .pushAndRemoveUntil(
+                                            MaterialPageRoute(
+                                                builder: (
+                                                    context) => const StudentListUI()
+                                            ),
+                                                (Route<dynamic> route) => false
+                                        );
+                                      },
                                       color: Colors.red,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(

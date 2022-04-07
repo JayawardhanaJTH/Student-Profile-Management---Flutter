@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
         StudentPage.studentRoute: (context) => const StudentPage(),
         TeacherPage.teacherRoute: (context) => const TeacherPage(),
         TestAdminPage.testAdminHomeRoute: (context) => const TestAdminPage(),
-        TestStudentListUI.testStudentUIRoute: (context) => const TestStudentListUI(),
+        StudentListUI.testStudentUIRoute: (context) => const StudentListUI(),
         TestProfileUIPage.profileUIRoute: (context) =>
             const TestProfileUIPage(),
         TestEditProfile.testEditProfileRoute: (context) =>

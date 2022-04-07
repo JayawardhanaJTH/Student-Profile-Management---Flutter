@@ -154,15 +154,6 @@ class _TestEditProfileState extends State<TestEditProfile> {
                                   size: 80.0,
                                 ),
                               ),
-                              Container(
-                                padding:
-                                    const EdgeInsets.fromLTRB(80, 80, 0, 0),
-                                child: Icon(
-                                  Icons.add_circle,
-                                  color: Colors.grey.shade700,
-                                  size: 25.0,
-                                ),
-                              ),
                             ],
                           ),
                         ),

@@ -66,7 +66,7 @@ class _TestAdminPageState extends State<TestAdminPage>{
                     iconSize: 40,
                     onPressed: () {
                       Navigator.of(context)
-                          .pushNamed(TestStudentListUI.testStudentUIRoute);
+                          .pushNamed(StudentListUI.testStudentUIRoute);
                     },
                     icon: const Icon(Icons.face),
                     color: Colors.white,
