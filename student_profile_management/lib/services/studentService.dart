@@ -119,7 +119,7 @@ class StudentService {
   }
 
   Future<bool?> updateStudentRank(
-      {required String id, required double rank}) async {
+      {required String id, required int rank}) async {
     bool state = false;
 
     await Database.getCollectionRef(path: COLLECTION_PATH)

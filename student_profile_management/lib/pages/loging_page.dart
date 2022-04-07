@@ -72,6 +72,7 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.of(context).pushNamed(TestProfileUIPage.profileUIRoute);
           
         } else if (data!.userType == "Admin") {
+          box.write("userType", "Admin");
           Navigator.of(context).pushNamed(TestAdminPage.testAdminHomeRoute);
         }
       } else {

@@ -141,7 +141,6 @@ class _TestProfileUIPageState extends State<TestProfileUIPage> {
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 20.0),
-                        const SizedBox(height: 20.0),
                         Container(
                           decoration:
                               ThemeHelper().buttonBoxDecoration(context),
@@ -166,6 +165,31 @@ class _TestProfileUIPageState extends State<TestProfileUIPage> {
                           ),
                         ),
                         const SizedBox(height: 25.0),
+                        _userType == "Teacher"
+                            ? Container(
+                                decoration:
+                                    ThemeHelper().buttonBoxDecoration(context),
+                                child: ElevatedButton(
+                                  style: ThemeHelper().buttonStyle(),
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        40, 10, 40, 10),
+                                    child: Text(
+                                      "Students".toUpperCase(),
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pushNamed(
+                                        TestStudentListUI.testStudentUIRoute);
+                                  },
+                                ),
+                              )
+                            : const SizedBox(height: 20.0),
                       ],
                     ),
                   ),

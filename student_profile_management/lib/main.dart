@@ -5,12 +5,11 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:student_profile_management/connection/database.dart';
 import 'package:student_profile_management/pages/EditProfile.dart';
 import 'package:student_profile_management/pages/UserProfileUI.dart';
-import 'package:student_profile_management/pages/addStudent.dart';
-import 'package:student_profile_management/pages/admin_home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:student_profile_management/pages/forgot_password_page.dart';
 import 'package:student_profile_management/pages/forgot_password_verification_page.dart';
 import 'package:student_profile_management/pages/loging_page.dart';
+import 'package:student_profile_management/pages/manageRank.dart';
 import 'package:student_profile_management/pages/registration_page.dart';
 import 'package:student_profile_management/pages/student_page.dart';
 import 'package:student_profile_management/pages/teacher_page.dart';
@@ -61,16 +60,16 @@ class MyApp extends StatelessWidget {
             const ForgotPasswordPage(),
         ForgotPasswordVerificationPage.frogotPasswordConf: (context) =>
             const ForgotPasswordVerificationPage(),
-        AdminHome.adminHomeRoute: (context) => const AdminHome(),
-        AddStudent.addStudentRoute: (context) => const AddStudent(),
         StudentPage.studentRoute: (context) => const StudentPage(),
         TeacherPage.teacherRoute: (context) => const TeacherPage(),
         TestAdminPage.testAdminHomeRoute: (context) => const TestAdminPage(),
-        TestStudentListUI.testStudentUIRoute: (context) => const TestStudentListUI(),
+        TestStudentListUI.testStudentUIRoute: (context) =>
+            const TestStudentListUI(),
         TestProfileUIPage.profileUIRoute: (context) =>
             const TestProfileUIPage(),
         TestEditProfile.testEditProfileRoute: (context) =>
             const TestEditProfile(),
+        Rank.rankRoute: (context) => const Rank(),
       },
     );
   }
